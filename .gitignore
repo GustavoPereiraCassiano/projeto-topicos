@@ -1,4 +1,7 @@
+gitignore
 dados/prata/*
+!dados/prata/**/
+!dados/prata/**/proveniencia.jsonl
 dados/ouro/*
 !dados/**/.gitkeep
 .venv/

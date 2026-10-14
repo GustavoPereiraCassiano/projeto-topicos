@@ -1,0 +1,1 @@
+{"origem": "brasileirao_20261014_114504.csv", "arquivo_prata": "brasileirao.parquet", "linhas_antes": 8785, "linhas_depois": 8785, "decisoes": ["Espacos removidos", "Linhas duplicadas verificadas e removidas", "Placar convertido para numero"], "transformado_em": "2026-10-14T19:17:16"}

@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Realizar a ingestão de dados de diferentes fontes para a camada Bronze, preservando os dados originais e registrando sua proveniência.
+Realizar a ingestão de dados de diferentes fontes para a camada Bronze, preservando os dados originais, e transformar os dados para a camada Prata, realizando verificações de qualidade e registrando a proveniência das operações.
 
 ## Fontes de dados
 
@@ -13,18 +13,66 @@ Realizar a ingestão de dados de diferentes fontes para a camada Bronze, preserv
 
 ## Estrutura do projeto
 
-- `src/`: códigos de ingestão.
-- `dados/bronze/brasileirao/`: dados do Brasileirão.
-- `dados/bronze/ibge/`: dados dos municípios do IBGE.
+- `src/`: códigos de ingestão, exploração e transformação dos dados.
+- `dados/bronze/brasileirao/`: dados originais do Brasileirão.
+- `dados/bronze/ibge/`: dados originais dos municípios do IBGE.
+- `dados/prata/brasileirao/`: dados transformados do Brasileirão em formato Parquet.
+- `dados/prata/ibge/`: dados transformados dos municípios do IBGE em formato Parquet.
+- `proveniencia.jsonl`: registros de proveniência das operações, conforme a organização utilizada no projeto.
 
 ## Proveniência
 
-Cada ingestão gera um arquivo com data e hora, e as informações sobre a extração são acrescentadas ao arquivo `proveniencia.jsonl`.
+Cada ingestão gera um arquivo com data e hora, preservando o histórico dos dados extraídos.
+
+Os registros de proveniência documentam informações como:
+
+- Fonte dos dados.
+- Nome do arquivo de origem.
+- Nome do arquivo gerado.
+- Quantidade de registros antes e depois da transformação.
+- Decisões tomadas durante o processamento.
+- Data e hora da operação.
+
+Esses registros permitem acompanhar a origem dos dados e as transformações realizadas.
+
+## Transformações dos dados
+
+### Brasileirão
+
+O arquivo original em CSV foi processado para gerar um arquivo Parquet na camada Prata.
+
+As transformações realizadas foram:
+
+- Remoção de espaços desnecessários.
+- Verificação e remoção de linhas duplicadas.
+- Conversão das colunas de placar para valores numéricos.
+- Exportação dos dados para o formato Parquet.
+
+**Resultado:** 8.785 linhas antes e depois da transformação. Nenhuma linha duplicada foi encontrada.
+
+### Municípios do IBGE
+
+O arquivo original em JSON foi processado para gerar um arquivo Parquet na camada Prata.
+
+As transformações realizadas foram:
+
+- Remoção de espaços desnecessários.
+- Verificação da chave identificadora dos municípios.
+- Organização dos campos aninhados do JSON em colunas.
+- Exportação dos dados para o formato Parquet.
+
+**Resultado:** 5.571 linhas antes e depois da transformação.
+
+Os dados originais são preservados na camada Bronze, enquanto os dados transformados são armazenados na camada Prata.
 
 ## Tecnologias utilizadas
 
 - Python
+- Pandas
+- PyArrow
 - Requests
+- JSON e CSV
+- Parquet
 - Git e GitHub
 
 ## Defeitos conhecidos das fontes
