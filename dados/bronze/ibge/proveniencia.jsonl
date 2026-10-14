@@ -1,1 +1,0 @@
-{"fonte": "IBGE - API de Localidades (municipios)", "url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios", "arquivo_bronze": "municipios_20261013.json", "registros": 5571, "bytes": 2470036, "sha256": "86ecdccdf97d72e7e5e46f0854cfcea8bacc28154cc1bc4ed0e6110e3a6c9c02", "extraido_em": "2026-10-13T10:01:18"}
