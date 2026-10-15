@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
+import limpeza
 
 BRONZE = Path("dados/bronze/brasileirao")
 PRATA = Path("dados/prata/brasileirao")
@@ -30,15 +31,6 @@ def carregar():
     return df, caminho
 
 
-def tirar_espacos(df):
-    df.columns = df.columns.str.strip()
-
-    for coluna in df.select_dtypes(include="object"):
-        df[coluna] = df[coluna].str.strip()
-
-    return df
-
-
 def conferir_duplicados(df):
     repetidas = df.duplicated().sum()
     print("Linhas duplicadas:", repetidas)
@@ -52,6 +44,18 @@ def converter_placares(df):
             df[coluna] = pd.to_numeric(
                 df[coluna], errors="coerce"
             )
+
+    return df
+
+
+def criar_pontos_mandante(df):
+    df["pontos_mandante"] = 0
+
+    vitoria = df["mandante_Placar"] > df["visitante_Placar"]
+    empate = df["mandante_Placar"] == df["visitante_Placar"]
+
+    df.loc[vitoria, "pontos_mandante"] = 3
+    df.loc[empate, "pontos_mandante"] = 1
 
     return df
 
@@ -92,9 +96,10 @@ def main():
     df, origem = carregar()
     antes = len(df)
 
-    df = tirar_espacos(df)
+    df = limpeza.tirar_espacos(df)
     df = conferir_duplicados(df)
     df = converter_placares(df)
+    df = criar_pontos_mandante(df)
 
     destino = salvar(df)
 
@@ -107,6 +112,7 @@ def main():
             "Espacos removidos",
             "Linhas duplicadas verificadas e removidas",
             "Placar convertido para numero",
+            "Atributo pontos_mandante criado a partir dos placares",
         ],
     )
 
