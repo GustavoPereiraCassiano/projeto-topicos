@@ -1,0 +1,42 @@
+{
+  "jogos": 8785,
+  "periodo": [
+    2003,
+    2024
+  ],
+  "times": 45,
+  "estados": 15,
+  "media_geral_pontos": 1.7527603870233353,
+  "testes": [
+    {
+      "amostra": "todos os estados",
+      "estados": 15,
+      "jogos": 8785,
+      "qui2": 158.00923222624863,
+      "gl": 28,
+      "p_qui2": 4.372817479672629e-20,
+      "cramer_v": 0.09483209624617232,
+      "kruskal_H": 140.1115709544715,
+      "p_kruskal": 6.74158620177028e-23
+    },
+    {
+      "amostra": "estados com >= 100 jogos",
+      "estados": 10,
+      "jogos": 8583,
+      "qui2": 108.34723698129444,
+      "gl": 18,
+      "p_qui2": 6.387373851619901e-15,
+      "cramer_v": 0.0794464262808569,
+      "kruskal_H": 97.09003478043483,
+      "p_kruskal": 6.092725870158857e-17
+    }
+  ],
+  "variancia_explicada": {
+    "estado_r2": 0.015616845647921429,
+    "estado_r2_ajustado": 0.014045424420905617,
+    "time_r2": 0.026366381514818515,
+    "time_r2_ajustado": 0.02146479350413799
+  },
+  "times_dentro_do_estado_p<0.05": 6,
+  "estados_com_2+_times": 10
+}
