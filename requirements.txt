@@ -1,0 +1,10 @@
+pandas
+pyarrow
+requests
+kagglehub
+scipy
+matplotlib
+duckdb
+dbt-core
+dbt-duckdb
+streamlit

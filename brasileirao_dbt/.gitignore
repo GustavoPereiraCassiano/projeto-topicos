@@ -1,0 +1,6 @@
+target/
+dbt_packages/
+logs/
+
+# Identificador anonimo do dbt, criado na pasta do profiles.yml.
+.user.yml

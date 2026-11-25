@@ -1,0 +1,17 @@
+# Perfil de conexao do dbt, versionado junto com o projeto.
+#
+# O dbt procura o profiles.yml primeiro na pasta de onde e executado.
+# Como o pipeline roda o dbt de dentro de brasileirao_dbt/, este arquivo
+# e encontrado sem configuracao extra, e tem precedencia sobre um
+# ~/.dbt/profiles.yml que voce ja tenha.
+#
+# O caminho do banco e relativo a esta pasta, entao funciona em
+# qualquer maquina. Nao ha senha aqui: o DuckDB e um arquivo local.
+brasileirao_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../dados/ouro/projeto.duckdb
+      schema: ouro
+      threads: 1

@@ -1,0 +1,133 @@
+# NOTA SOBRE vw_desempenho_mandante
+# A view junta fato_partida, dim_time e dim_estado. O que poderia dar
+# errado nessa juncao esta coberto: time_id e uf_id sao unicos nas
+# dimensoes (a juncao nao duplica linhas) e os relationships da fato e
+# do dim_time garantem que ninguem fica sem par. O teste singular
+# vw_sem_perda_de_linhas confere a contagem.
+
+version: 2
+
+models:
+
+  - name: dim_estado
+    description: >
+      Estados brasileiros (UF), uma linha por estado.
+      Origem: IBGE, tabela prata.estados.
+    columns:
+
+      - name: uf_id
+        description: Sigla da UF, por exemplo SP. Chave da dimensao.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: nome
+        description: Nome do estado por extenso.
+        data_tests:
+          - not_null
+
+      - name: regiao
+        description: Grande regiao do IBGE a que o estado pertence.
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul']
+
+  - name: dim_time
+    description: >
+      Times que disputaram a Serie A entre 2003 e 2024, uma linha por time.
+      Cada time tem um unico estado de origem.
+    columns:
+
+      - name: time_id
+        description: Nome do time, como a fonte entrega. Chave da dimensao.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: uf_id
+        description: Estado de origem do time. Aponta para dim_estado.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_estado')
+              field: uf_id
+
+  - name: fato_partida
+    description: >
+      Partidas da Serie A, uma linha por partida. O ponto de vista e o do
+      time mandante: pontos_mandante e resultado dizem como ele se saiu.
+    columns:
+
+      - name: partida_id
+        description: Identificador da partida na fonte. Chave da fato.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: data_jogo
+        description: Data da partida.
+        data_tests:
+          - not_null
+
+      - name: ano
+        description: >
+          Ano civil da data do jogo. Nao e a temporada: os jogos que
+          faltaram da temporada de 2020 foram disputados em 2021.
+        data_tests:
+          - not_null
+
+      - name: rodada
+        description: Numero da rodada do campeonato.
+
+      - name: time_mandante_id
+        description: Time que jogou em casa. Aponta para dim_time.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_time')
+              field: time_id
+
+      - name: time_visitante_id
+        description: Time visitante. Aponta para dim_time.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_time')
+              field: time_id
+
+      - name: arena
+        description: Estadio onde o jogo foi disputado.
+
+      - name: gols_mandante
+        description: Gols marcados pelo mandante.
+        data_tests:
+          - not_null
+
+      - name: gols_visitante
+        description: Gols marcados pelo visitante.
+        data_tests:
+          - not_null
+
+      - name: pontos_mandante
+        description: >
+          Pontos do mandante na partida: 3 por vitoria, 1 por empate e 0
+          por derrota. Atributo derivado, criado na camada Prata.
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1, 3]
+              quote: false
+
+      - name: resultado
+        description: Resultado do mandante, V (vitoria), E (empate) ou D (derrota).
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['V', 'E', 'D']
+
+  - name: vw_desempenho_mandante
+    description: >
+      Fato e dimensoes ja juntas: cada partida com o time mandante, o estado
+      e a regiao dele. E a tabela que a analise e o painel consultam.
+      Sem teste de coluna proprio de proposito: ver nota no topo deste arquivo.

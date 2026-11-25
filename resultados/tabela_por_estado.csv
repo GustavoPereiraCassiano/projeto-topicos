@@ -1,0 +1,16 @@
+uf,estado,regiao,jogos,times,pontos_medios,V_%,E_%,D_%,aproveitamento_%,ic95_inf,ic95_sup,amostra_pequena
+RS,Rio Grande do Sul,Sul,959,3,1.926,55.787,25.235,18.978,64.199,1.847,2.005,False
+SP,São Paulo,Sudeste,2173,12,1.875,53.751,26.277,19.972,62.51,1.822,1.928,False
+PA,Pará,Norte,67,1,1.806,52.239,23.881,23.881,60.199,1.493,2.119,True
+MG,Minas Gerais,Sudeste,913,4,1.802,52.245,23.439,24.315,60.058,1.717,1.886,False
+PR,Paraná,Sul,828,3,1.8,51.57,25.242,23.188,59.984,1.712,1.887,False
+RJ,Rio de Janeiro,Sudeste,1556,4,1.756,49.486,27.121,23.393,58.526,1.692,1.819,False
+CE,Ceará,Nordeste,310,2,1.648,44.839,30.323,24.839,54.946,1.506,1.79,False
+PE,Pernambuco,Nordeste,342,3,1.576,44.444,24.269,31.287,52.534,1.435,1.717,False
+BA,Bahia,Nordeste,449,2,1.57,43.207,27.394,29.399,52.339,1.45,1.691,False
+GO,Goiás,Centro-Oeste,447,2,1.539,42.058,27.74,30.201,51.305,1.418,1.66,False
+SC,Santa Catarina,Sul,606,5,1.482,39.274,30.363,30.363,49.395,1.38,1.584,False
+AL,Alagoas,Nordeste,19,1,1.211,31.579,26.316,42.105,40.351,0.619,1.802,True
+MT,Mato Grosso,Centro-Oeste,76,1,1.197,28.947,32.895,38.158,39.912,0.92,1.475,True
+DF,Distrito Federal,Centro-Oeste,21,1,1.143,28.571,28.571,42.857,38.095,0.597,1.689,True
+RN,Rio Grande do Norte,Nordeste,19,1,0.474,10.526,15.789,73.684,15.789,0.04,0.907,True

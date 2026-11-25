@@ -1,0 +1,22 @@
+# Projeto dbt que constroi a camada Ouro (esquema "ouro" do DuckDB).
+# O nome do projeto e do perfil precisam ser iguais ao de profiles.yml.
+name: 'brasileirao_dbt'
+version: '1.0.0'
+profile: 'brasileirao_dbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Dimensoes e fato sao gravadas como tabela. A tabela achatada
+# (vw_desempenho_mandante) e uma view: ver o config no proprio modelo.
+models:
+  brasileirao_dbt:
+    +materialized: table

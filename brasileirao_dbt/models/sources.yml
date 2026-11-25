@@ -1,0 +1,14 @@
+version: 2
+
+# Tabelas da Prata que o dbt le. Quem as copia para o banco e a etapa
+# "carga" do pipeline (src/carga.py).
+sources:
+  - name: prata
+    schema: prata
+    tables:
+      - name: brasileirao_enriquecido
+        description: >
+          Um jogo por linha, ja limpo, com pontos_mandante e a regiao do
+          estado do mandante (juncao feita em src/enriquecer.py).
+      - name: estados
+        description: Um registro por UF, vindo dos municipios do IBGE.

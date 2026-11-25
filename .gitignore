@@ -1,0 +1,20 @@
+# Ambiente e lixo do Python
+.venv/
+__pycache__/
+*.pyc
+kaggle.json
+pipeline.log
+
+# Prata e Ouro são regeneradas pelo pipeline (só a proveniência é versionada)
+dados/prata/**/*.parquet
+dados/ouro/*.duckdb
+dados/ouro/*.duckdb.wal
+
+# Gerados pelo dbt
+brasileirao_dbt/target/
+brasileirao_dbt/logs/
+brasileirao_dbt/dbt_packages/
+brasileirao_dbt/.user.yml
+
+# Relatório exploratório pesado
+relatorios/
